@@ -8,8 +8,8 @@ on:
 env:
   AZURE_CONTAINER_REGISTRY: smarthomeassistnatacr
   IMAGE_NAME: smarthomeassistant
-  DOCKERFILE_PATH: SmartHomeAssistant/WebApp.Dockerfile
-  CONTEXT_PATH: SmartHomeAssistant
+  DOCKERFILE_PATH: ./WebApp.Dockerfile
+  CONTEXT_PATH: .
 
 jobs:
   build-and-deploy:
