@@ -21,8 +21,10 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/smarthomeassistant:latest .
-
+          docker build \
+            -f SmartHomeAssistant/WebApp.Dockerfile \
+            -t ${{ env.ACR_LOGIN_SERVER }}/smarthomeassistant:latest \
+            SmartHomeAssistant
       - name: Push Docker image
         run: |
           docker push ${{ secrets.ACR_LOGIN_SERVER }}/smarthomeassistant:latest
