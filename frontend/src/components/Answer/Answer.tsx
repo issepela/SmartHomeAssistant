@@ -355,16 +355,29 @@ export const Answer = ({ answer, onCitationClicked, onExectResultClicked }: Prop
             {parsedAnswer?.citations.map((citation, idx) => {
               return (
                 <span
-                  title={createCitationFilepath(citation, ++idx)}
-                  tabIndex={0}
-                  role="link"
                   key={idx}
-                  onClick={() => onCitationClicked(citation)}
-                  onKeyDown={e => (e.key === 'Enter' || e.key === ' ' ? onCitationClicked(citation) : null)}
                   className={styles.citationContainer}
-                  aria-label={createCitationFilepath(citation, idx)}>
-                  <div className={styles.citation}>{idx}</div>
-                  {createCitationFilepath(citation, idx, true)}
+                  style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span
+                    title={createCitationFilepath(citation, idx + 1)}
+                    tabIndex={0}
+                    role="link"
+                    onClick={() => onCitationClicked(citation)}
+                    onKeyDown={e => (e.key === 'Enter' || e.key === ' ' ? onCitationClicked(citation) : null)}
+                    aria-label={createCitationFilepath(citation, idx + 1)}
+                    style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+                    <div className={styles.citation}>{idx + 1}</div>
+                    {createCitationFilepath(citation, idx + 1, true)}
+                  </span>
+                  {citation.url && !citation.url.includes('blob.core') && (
+                    <FontIcon
+                      iconName="OpenInNewWindow"
+                      title="Open full document"
+                      onClick={() => window.open(citation.url!, '_blank')}
+                      style={{ cursor: 'pointer', fontSize: '14px', color: '#0078d4' }}
+                      aria-label="Open full document in new window"
+                    />
+                  )}
                 </span>
               )
             })}

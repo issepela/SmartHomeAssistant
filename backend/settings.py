@@ -44,7 +44,7 @@ class _UiSettings(BaseSettings):
     title: str = "Nice"
     logo: Optional[str] = None
     chat_logo: Optional[str] = None
-    chat_title: str = "Smart Home Assistant"
+    chat_title: str = "Yubii Smart Living Assistant"
     chat_description: str = "This chatbot is configured to answer your questions about Nice SmartHome products and solutions."
     favicon: str = "/favicon.ico"
     show_share_button: bool = True
