@@ -353,6 +353,22 @@ export const Answer = ({ answer, onCitationClicked, onExectResultClicked }: Prop
         {chevronIsExpanded && (
           <div className={styles.citationWrapper}>
             {parsedAnswer?.citations.map((citation, idx) => {
+              // Extract the base filename without the " - Part X" suffix
+              const getDocumentUrl = () => {
+                if (citation.url && !citation.url.includes('blob.core')) {
+                  return citation.url
+                }
+                if (citation.filepath) {
+                  // Extract just the filename from the filepath
+                  const filename = citation.filepath.split('/').pop() || citation.filepath
+                  // Construct the blob URL
+                  return `https://testnice1.blob.core.windows.net/manuals/${encodeURIComponent(filename)}`
+                }
+                return null
+              }
+              
+              const documentUrl = getDocumentUrl()
+              
               return (
                 <span
                   key={idx}
@@ -369,11 +385,11 @@ export const Answer = ({ answer, onCitationClicked, onExectResultClicked }: Prop
                     <div className={styles.citation}>{idx + 1}</div>
                     {createCitationFilepath(citation, idx + 1, true)}
                   </span>
-                  {citation.url && !citation.url.includes('blob.core') && (
+                  {documentUrl && (
                     <FontIcon
                       iconName="OpenInNewWindow"
                       title="Open full document"
-                      onClick={() => window.open(citation.url!, '_blank')}
+                      onClick={() => window.open(documentUrl, '_blank')}
                       style={{ cursor: 'pointer', fontSize: '14px', color: '#0078d4' }}
                       aria-label="Open full document in new window"
                     />
